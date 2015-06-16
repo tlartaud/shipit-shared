@@ -84,6 +84,42 @@ Default: `path.join(shipit.config.deployTo, 'shared')`
 
 The path where your shared files reside.
 
+#### `shared.path` modes
+
+> Optional: Use a preset mode to tell shipit-shared what to do why the shared files
+
+Syntax: ` --mode=[MODE]`
+
+Modes:
+- default
+  This is the default mode. It will be used if you do not provide any `mode=` option, or if the one provided
+  can not be found. This mode is safe, it will try to move the newly pulled target file/directory to you
+  shared folder, but if something already exists in that place, it will be mode to the backups folder instead.
+- override
+  Use this mode when you have a file/directory stored in your repository and rsynced to your remote
+  by shipit, and when you want this file/directory to be copied to your shared folder, and to
+  override the actual one in your `shared` folder.
+- ignore
+  Use this mode when you have a file/directory stored in your repository and rsynced to your remote
+  by shipit, and when you dont want this file/directory to be copied to your shared folder. It will be
+  copied to backups or removed.
+  
+  
+Example:
+```
+"shared": {
+    "dirs": [
+      "html/app/uploads",
+      "html/app/cache --mode=override"
+    ],
+    "files": [
+      ".env",
+      "html/.htaccess --mode=override",
+      "html/app/advanced-cache.php --mode=ignore"
+    ]
+  }
+```
+
 ### `shared.symlinkPath`
 
 Type: `String`

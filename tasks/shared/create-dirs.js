@@ -23,6 +23,7 @@ module.exports = function (gruntOrShipit) {
       isFile = isFile || false;
       var method = remote ? 'remote' : 'local';
       var pathStr = paths.map(function(filePath) {
+        filePath = filePath.replace(shipit.config.shared.regex.mode,'');
         filePath = remote ? path.join(shipit.sharedPath, filePath) : filePath;
         return isFile ? util.format('$(dirname %s)', filePath) : filePath;
       }).join(' ');
